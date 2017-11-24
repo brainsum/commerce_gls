@@ -1,0 +1,4 @@
+#services:
+#  plugin.manager.commerce_gls_hu.processor:
+#    class: Drupal\commerce_gls_hu\Plugin\GlsHuManager
+#    parent: default_plugin_manager

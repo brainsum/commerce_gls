@@ -1,0 +1,13 @@
+/* 
+    Created on : 2017.01.05., 13:20:41
+    Author     : dj
+*/
+
+#big-canvas {
+    height: 400px;
+    width: 100%;
+}
+
+.hide {
+    display: none;
+}

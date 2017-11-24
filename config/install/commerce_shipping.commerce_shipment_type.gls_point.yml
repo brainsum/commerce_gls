@@ -1,0 +1,6 @@
+langcode: en
+status: true
+dependencies: {  }
+id: gls_point
+label: 'Gls point'
+traits: {  }

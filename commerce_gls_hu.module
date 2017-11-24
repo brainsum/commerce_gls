@@ -1,0 +1,221 @@
+<?php
+
+/**
+ * @file commerce_gls_hu.module
+ *
+ * author: dj
+ * created: 2017.08.28. - 6:55:45
+ *
+ * Description of commerce_gls_hu
+ */
+
+/**
+ * Implements hook_field_widget_form_alter().
+ *
+ * @param array $element
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ * @param array $context
+ */
+function commerce_gls_hu_field_widget_form_alter(&$element, \Drupal\Core\Form\FormStateInterface $form_state, $context) {
+  if ($context['widget']->getPluginId() === 'commerce_shipping_rate') {
+    $element['#ajax']['callback'] = 'commerce_gls_hu_shipping_pane_service_details_refresh';
+    $element['#ajax']['wrapper'] = 'checkout-pane-gls-hu-wrapper';
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * @param array $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ */
+function commerce_gls_hu_form_commerce_checkout_flow_multistep_default_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  $widget = $form['shipping_information']['shipments'][0]['shipping_method']['widget'][0];
+  $default_value = $widget['#default_value'];
+  if ($input = $form_state->getUserInput()) {
+    if (!empty($input['shipping_information']['shipments'][0]['shipping_method'][0])) {
+      $default_value = $input['shipping_information']['shipments'][0]['shipping_method'][0];
+    }
+  }
+  $is_gls = FALSE;
+  if (isset($widget[$default_value]) && $service = $widget[$default_value]) {
+    if (isset($service['#shipping_method_id']) &&
+        $rate = \Drupal::entityManager()->getStorage('commerce_shipping_method')->load($service['#shipping_method_id'])) {
+      $is_gls = $rate->getPlugin()->getPluginId() === 'gls_hu';
+    }
+  }
+  $form['shipping_information']['shipments'][0]['shipping_method']['commerce_gls_hu_shipping_wrapper'] = [
+    '#type' => 'container',
+    '#prefix' => '<div id="checkout-pane-gls-hu-wrapper">',
+    '#suffix' => '</div>',
+  ];
+
+  $form['shipping_information']['shipments'][0]['shipping_method']['commerce_gls_hu_shipping_wrapper']['map'] = array(
+    '#markup' => '',
+    '#prefix' => '<div id="big-canvas" class="' . ($is_gls ? '' : 'hide') . '">',
+    '#suffix' => '</div>',
+  );
+
+  $form['shipping_information']['shipments'][0]['shipping_method']['commerce_gls_hu_shipping_wrapper']['gls_data'] = array(
+    '#type' => 'container',
+    '#tree' => TRUE,
+  );
+
+  $form['shipping_information']['shipments'][0]['shipping_method']['commerce_gls_hu_shipping_wrapper']['gls_data']['shop_id'] = array(
+    '#type' => 'hidden',
+    '#value' => !empty($order->data['gls_data']['shop_id']) ? $order->data['gls_data']['shop_id'] : '', //$shop_id,
+    '#attributes' => array(
+      'id' => 'store-shop-id-value',
+    ),
+  );
+
+  $form['shipping_information']['shipments'][0]['shipping_method']['commerce_gls_hu_shipping_wrapper']['gls_data']['store_gmap_address'] = array(
+    '#type' => 'hidden',
+    '#value' => !empty($order->data['gls_data']['store_gmap_address']) ? $order->data['gls_data']['store_gmap_address'] : '', //$shop_address,
+    '#attributes' => array(
+      'id' => 'store-address-value',
+    ),
+  );
+
+  $form['shipping_information']['shipments'][0]['shipping_method']['commerce_gls_hu_shipping_wrapper']['gls_data']['pclshopid'] = array(
+    '#type' => 'hidden',
+    '#value' => !empty($order->data['gls_data']['pclshopid']) ? $order->data['gls_data']['pclshopid'] : '',
+    '#attributes' => array(
+      'id' => 'store-pclshopid-value',
+    ),
+  );
+
+  $form['shipping_information']['shipments'][0]['shipping_method']['commerce_gls_hu_shipping_wrapper']['gls_data']['name'] = array(
+    '#type' => 'hidden',
+    '#value' => !empty($order->data['gls_data']['name']) ? $order->data['gls_data']['name'] : '',
+    '#attributes' => array(
+      'id' => 'store-name-value',
+    ),
+  );
+
+  $form['shipping_information']['shipments'][0]['shipping_method']['commerce_gls_hu_shipping_wrapper']['gls_data']['ctrcode'] = array(
+    '#type' => 'hidden',
+    '#value' => !empty($order->data['gls_data']['ctrcode']) ? $order->data['gls_data']['ctrcode'] : '',
+    '#attributes' => array(
+      'id' => 'store-ctrcode-value',
+    ),
+  );
+
+  $form['shipping_information']['shipments'][0]['shipping_method']['commerce_gls_hu_shipping_wrapper']['gls_data']['zipcode'] = array(
+    '#type' => 'hidden',
+    '#value' => !empty($order->data['gls_data']['zipcode']) ? $order->data['gls_data']['zipcode'] : '',
+    '#attributes' => array(
+      'id' => 'store-zipcode-value',
+    ),
+  );
+
+  $form['shipping_information']['shipments'][0]['shipping_method']['commerce_gls_hu_shipping_wrapper']['gls_data']['city'] = array(
+    '#type' => 'hidden',
+    '#value' => !empty($order->data['gls_data']['city']) ? $order->data['gls_data']['city'] : '',
+    '#attributes' => array(
+      'id' => 'store-city-value',
+    ),
+  );
+
+  $form['shipping_information']['shipments'][0]['shipping_method']['commerce_gls_hu_shipping_wrapper']['gls_data']['address'] = array(
+    '#type' => 'hidden',
+    '#value' => !empty($order->data['gls_data']['address']) ? $order->data['gls_data']['address'] : '',
+    '#attributes' => array(
+      'id' => 'store-address-value',
+    ),
+  );
+
+  $form['shipping_information']['shipments'][0]['shipping_method']['commerce_gls_hu_shipping_wrapper']['gls_data']['contact'] = array(
+    '#type' => 'hidden',
+    '#value' => !empty($order->data['gls_data']['contact']) ? $order->data['gls_data']['contact'] : '',
+    '#attributes' => array(
+      'id' => 'store-contact-value',
+    ),
+  );
+
+  $form['shipping_information']['shipments'][0]['shipping_method']['commerce_gls_hu_shipping_wrapper']['gls_data']['phone'] = array(
+    '#type' => 'hidden',
+    '#value' => !empty($order->data['gls_data']['phone']) ? $order->data['gls_data']['phone'] : '',
+    '#attributes' => array(
+      'id' => 'store-phone-value',
+    ),
+  );
+
+  $form['shipping_information']['shipments'][0]['shipping_method']['commerce_gls_hu_shipping_wrapper']['gls_data']['email'] = array(
+    '#type' => 'hidden',
+    '#value' => !empty($order->data['gls_data']['email']) ? $order->data['gls_data']['email'] : '',
+    '#attributes' => array(
+      'id' => 'store-email-value',
+    ),
+  );
+
+  $form['actions']['next']['#submit'][] = 'commerce_gls_hu_form_commerce_checkout_flow_multistep_default_submit';
+  $form['#submit'][] = 'commerce_gls_hu_form_commerce_checkout_flow_multistep_default_submit';
+
+  //kint($form);
+  //kint($form['shipping_information']['shipments']);
+}
+
+/**
+ * Ajax callback.
+ *
+ * @param array $form
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ */
+function commerce_gls_hu_shipping_pane_service_details_refresh($form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  return $form['shipping_information']['shipments'][0]['shipping_method']['commerce_gls_hu_shipping_wrapper'];
+}
+
+/**
+ * Implements hook_library_info_build().
+ *
+ * Prepare library google map api js with stored key value.
+ */
+function commerce_gls_hu_library_info_build() {
+  $key = '';
+  if ($config = \Drupal::config('commerce_gls_hu.glshuadmin')) {
+    $key = $config->get('gls_map_api_key');
+  }
+
+  $libraries = [];
+
+  $libraries['commerce_gls_hu.google_map'] = [
+    'version' => '3.x',
+    'header' => false,
+    'js' => [
+      '//maps.googleapis.com/maps/api/js?v=3&key=' . $key => [
+        'type' => 'external',
+        'minified' => true,
+      ],
+    ],
+  ];
+
+  return $libraries;
+}
+
+function commerce_gls_hu_preprocess_commerce_checkout_form__with_sidebar(&$variables) {
+  if ($variables['form']['#step_id'] === 'order_information') {
+    // Get Gls libraries if method is Gls point.
+    $variables['form']['#attached']['library'][] = 'commerce_gls_hu/jquery.init';
+    $variables['form']['#attached']['library'][] = 'commerce_gls_hu/commerce_gls_hu.google_map';
+    $variables['form']['#attached']['library'][] = 'commerce_gls_hu/online.gls-hungary';
+    $variables['form']['#attached']['library'][] = 'commerce_gls_hu/shipping.map_init';
+    $variables['form']['#attached']['library'][] = array(
+      'data' => array('address' => 'aaaaa'),
+      'type' => 'setting'
+    );
+
+    // kint($variables);
+  }
+}
+
+function commerce_gls_hu_form_commerce_checkout_flow_multistep_default_submit($form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  if (!empty($form_state->getUserInput()['shipping_information']['shipments'][0]['shipping_method_wrapper']['commerce_gls_hu_shipping_wrapper']['gls_data'])) {
+    $gls_data = $form_state->getUserInput()['shipping_information']['shipments'][0]['shipping_method_wrapper']['commerce_gls_hu_shipping_wrapper']['gls_data'];
+    if (!empty($form_state->getBuildInfo()['callback_object']->getOrder() &&
+            $order = $form_state->getBuildInfo()['callback_object']->getOrder())) {
+      $order->set('field_gls_point_destination', [$gls_data]);
+      $order->save();
+    }
+  }
+}

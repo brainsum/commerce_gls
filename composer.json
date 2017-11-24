@@ -1,0 +1,14 @@
+{
+  "name": "drupal/commerce_gls_hu",
+  "type": "drupal-module",
+  "description": "This is an implementation of the Hungarian GLS shipping method for Drupal Commerce shops.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/commerce_gls_hu",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "http://drupal.org/project/issues/commerce_gls_hu",
+    "source": "http://cgit.drupalcode.org/commerce_gls_hu"
+  },
+  "require": { }
+}

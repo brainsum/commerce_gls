@@ -1,0 +1,7 @@
+name: Commerce GLS HU Shipping
+type: module
+description: This is an implementation of the Hungarian GLS shipping method for Drupal Commerce shops.
+core: 8.x
+package: commerce_shipping
+dependencies:
+  - commerce_shipping

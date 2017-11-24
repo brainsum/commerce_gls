@@ -1,0 +1,24 @@
+jquery.init:
+  header: false
+  js:
+    js/commerce_gls_hu_jqinit.js: {}
+
+online.gls-hungary:
+  css:
+    component:
+      //online.gls-hungary.com/psmap/default.css: { type: external }
+
+  header: false
+  js:
+    //online.gls-hungary.com/psmap/psmap.js: { type: external, minified: true }
+
+shipping.map_init:
+  css:
+    component:
+      css/commerce_gls_hu_bigcanvas.css: {}
+
+  header: false
+  js:
+    js/commerce_gls_hu_shipping.map_init.js: {}
+  dependencies:
+    - core/jquery
