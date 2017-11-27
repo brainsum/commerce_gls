@@ -214,8 +214,19 @@ function commerce_gls_hu_form_commerce_checkout_flow_multistep_default_submit($f
     $gls_data = $form_state->getUserInput()['shipping_information']['shipments'][0]['shipping_method_wrapper']['commerce_gls_hu_shipping_wrapper']['gls_data'];
     if (!empty($form_state->getBuildInfo()['callback_object']->getOrder() &&
             $order = $form_state->getBuildInfo()['callback_object']->getOrder())) {
-      $order->set('field_gls_point_destination', [$gls_data]);
+      $order->set('gls_point_destination', [$gls_data]);
       $order->save();
     }
   }
+}
+
+/**
+ * Implements hook_theme_registry_alter().
+ *
+ * @param array $theme_registry
+ */
+function commerce_gls_hu_theme_registry_alter(&$theme_registry) {
+  $path = drupal_get_path('module', 'commerce_gls_hu');
+  $theme_registry['commerce_checkout_form__with_sidebar']['path'] = $path . '/templates';
+  $theme_registry['commerce_order__admin']['path'] = $path . '/templates';
 }

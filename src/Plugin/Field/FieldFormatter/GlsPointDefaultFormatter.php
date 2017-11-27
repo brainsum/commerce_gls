@@ -60,8 +60,7 @@ class GlsPointDefaultFormatter extends FormatterBase {
     foreach ($it as $delta => $item) {
       // Render each element as markup.
       $elements[$delta] = [
-        '#type' => 'markup',
-        '#markup' => $item,
+        '#markup' => 'aaaa',
       ];
     }
     dpm($elements);

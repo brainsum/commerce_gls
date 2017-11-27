@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_gls_hu
+    - commerce_order
+id: commerce_order.gls_point_destination
+field_name: gls_point_destination
+entity_type: commerce_order
+type: gls_point
+settings: {  }
+module: commerce_gls_hu
+locked: true
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
