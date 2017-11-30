@@ -44,6 +44,7 @@ function commerce_gls_hu_form_commerce_checkout_flow_multistep_default_alter(&$f
       $is_gls = $rate->getPlugin()->getPluginId() === 'gls_hu';
     }
   }
+
   $form['shipping_information']['shipments'][0]['shipping_method']['commerce_gls_hu_shipping_wrapper'] = [
     '#type' => 'container',
     '#prefix' => '<div id="checkout-pane-gls-hu-wrapper">',
@@ -152,8 +153,6 @@ function commerce_gls_hu_form_commerce_checkout_flow_multistep_default_alter(&$f
   $form['actions']['next']['#submit'][] = 'commerce_gls_hu_form_commerce_checkout_flow_multistep_default_submit';
   $form['#submit'][] = 'commerce_gls_hu_form_commerce_checkout_flow_multistep_default_submit';
 
-  //kint($form);
-  //kint($form['shipping_information']['shipments']);
 }
 
 /**
@@ -204,8 +203,22 @@ function commerce_gls_hu_preprocess_commerce_checkout_form__with_sidebar(&$varia
       'data' => array('address' => 'aaaaa'),
       'type' => 'setting'
     );
+  }
+  if ($variables['form']['#step_id'] === 'review') {
+    $order_gls_point = \Drupal::routeMatch()->getParameter('commerce_order')->toArray()['gls_point_destination'];
 
-    // kint($variables);
+    $rows = [];
+    $i = 0;
+    foreach ($order_gls_point[0] as $key => $value) {
+      $rows[$i] = [t(ucfirst(str_replace('_', ' ', $key))), $value];
+      $i++;
+    }
+
+    $variables['form']['review']['shipping_information']['summary'][0]['gls_point_destination']['data'] = [
+    '#theme' => 'table',
+    '#header' => [],
+    '#rows' => $rows,
+    ];
   }
 }
 
