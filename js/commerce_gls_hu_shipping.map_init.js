@@ -1,16 +1,4 @@
 function glsPSMap_OnSelected_Handler(data) {
-  // $('input:hidden[name="commerce_shipping[commerce_gls_hu_shipping][gls_data][shop_id]"]').val(data.pclshopid);
-  // $('input:hidden[name="commerce_shipping[commerce_gls_hu_shipping][gls_data][store_gmap_address]"]').val(data.zipcode + ',' + data.zipcode + ' ' + data.city + ',' + data.ctrcode);
-  // $('input:hidden[name="commerce_shipping[commerce_gls_hu_shipping][gls_data][pclshopid]"]').val(data.pclshopid);
-  // $('input:hidden[name="commerce_shipping[commerce_gls_hu_shipping][gls_data][name]"]').val(data.name);
-  // $('input:hidden[name="commerce_shipping[commerce_gls_hu_shipping][gls_data][ctrcode]"]').val(data.ctrcode);
-  // $('input:hidden[name="commerce_shipping[commerce_gls_hu_shipping][gls_data][zipcode]"]').val(data.zipcode);
-  // $('input:hidden[name="commerce_shipping[commerce_gls_hu_shipping][gls_data][city]"]').val(data.city);
-  // $('input:hidden[name="commerce_shipping[commerce_gls_hu_shipping][gls_data][address]"]').val(data.address);
-  // $('input:hidden[name="commerce_shipping[commerce_gls_hu_shipping][gls_data][contact]"]').val(data.contact);
-  // $('input:hidden[name="commerce_shipping[commerce_gls_hu_shipping][gls_data][phone]"]').val(data.phone);
-  // $('input:hidden[name="commerce_shipping[commerce_gls_hu_shipping][gls_data][email]"]').val(data.email);
-
   $('input:hidden[name="shipping_information[shipments][0][shipping_method_wrapper][commerce_gls_hu_shipping_wrapper][gls_data][shop_id]"]').val(data.pclshopid);
   $('input:hidden[name="shipping_information[shipments][0][shipping_method_wrapper][commerce_gls_hu_shipping_wrapper][gls_data][store_gmap_address]"]').val(data.zipcode + ',' + data.zipcode + ' ' + data.city + ',' + data.ctrcode);
   $('input:hidden[name="shipping_information[shipments][0][shipping_method_wrapper][commerce_gls_hu_shipping_wrapper][gls_data][pclshopid]"]').val(data.pclshopid);

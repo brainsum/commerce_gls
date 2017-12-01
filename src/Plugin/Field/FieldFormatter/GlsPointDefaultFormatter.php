@@ -28,26 +28,24 @@ class GlsPointDefaultFormatter extends FormatterBase {
     $elements = [];
     $it = $items->getValue();
     foreach ($it as $delta => $item) {
+      $rows = [];
       // Render each element as markup.
-      $elements[$delta] = [
-        '#type' => 'table',
-      ];
-
-      $i = 0;
-      foreach ($item as $key => $item_value) {
-        if ($key != "_attributes") {
-          $elements[$delta][$i]['label'] = [
-            '#type' => 'label',
-            '#title' => t(ucfirst(str_replace('_', ' ', $key))),
+      foreach (_commerce_gls_hu_get_gls_fields() as $key => $value) {
+        if ($value['visible'] === TRUE && !empty($item[$key])) {
+          $label = isset($value['label']) ? $value['label'] : t(ucfirst(str_replace('_', ' ', $key)));
+          $rows[] = [
+            $label,
+            $item[$key],
           ];
-          $elements[$delta][$i]['value'] = [
-            '#type' => 'label',
-            '#title' => $item_value,
-          ];
-          $i++;
         }
       }
+      $elements[$delta] = [
+        '#type' => 'table',
+        '#header' => [],
+        '#rows' => $rows,
+      ];
     }
+
     return $elements;
   }
 
