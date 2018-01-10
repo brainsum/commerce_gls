@@ -9,23 +9,23 @@ CONTENTS OF THIS FILE
  * Installation
  * Configuration
  * Maintainers
- * Supporting organization
+ * Supporting organisation
 
 
 INTRODUCTION
 ------------
 
 The Commerce GLS HU Shipping module provides GLS shipping points’ functionality
-for Drupal 8 Commerce with locations in Hungary.
+for Drupal 8 Commerce sites with locations in Hungary.
 
 This module creates a new shipment type and a new field to the Order: GLS Point
 Destination which stores selected GLS Point address.
-Module uses the GLS Hungary API which based on Gmap include every available GLS
+The module uses the GLS Hungary API which is based on Google map including every available GLS
 point.
 
-After the properly configuration you can choose the GLS Point option as a form
+After the proper configuration you can choose the GLS Point option as a form
 of delivery and select a GLS Point from the map where you want to pick up the
-ordered products.
+ordered products in the checkout process.
 By changing the GLS API’s database you can customise the module for your own
 country.
 
@@ -67,7 +67,7 @@ Current maintainer:
  * Kósa Ilma - https://www.drupal.org/u/kosa-ilma
 
 
-SUPPORTING ORGANIZATION
+SUPPORTING ORGANISATION
 -----------------------
 
 Brainsum - www.brainsum.com
