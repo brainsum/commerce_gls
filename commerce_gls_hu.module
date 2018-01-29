@@ -58,10 +58,11 @@ function commerce_gls_hu_preprocess_commerce_checkout_form__with_sidebar(&$varia
     $variables['form']['#attached']['library'][] = 'commerce_gls_hu/commerce_gls_hu.google_map';
     $variables['form']['#attached']['library'][] = 'commerce_gls_hu/online.gls-hungary';
     $variables['form']['#attached']['library'][] = 'commerce_gls_hu/shipping.map_init';
-    $variables['form']['#attached']['library'][] = array(
-      'data' => array('address' => 'aaaaa'),
-      'type' => 'setting'
-    );
+    // TODO: correct seettings needs here.
+    //$variables['form']['#attached']['drupalSettings'] = [
+    //  'data' => array('address' => 'aaaaa'),
+    //  'type' => 'setting'
+    //];
   }
 }
 
@@ -85,7 +86,7 @@ function commerce_gls_hu_field_widget_form_alter(&$element, \Drupal\Core\Form\Fo
  * @param array $form
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  */
-function commerce_gls_hu_form_commerce_checkout_flow_multistep_default_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $a, $b, $c) {
+function commerce_gls_hu_form_commerce_checkout_flow_multistep_default_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
   $gls_point_destination = [];
   if ($order = $form_state->getBuildInfo()['callback_object']->getOrder()) {
     $values = $order->get('gls_point_destination')->getValue();
@@ -120,7 +121,7 @@ function commerce_gls_hu_form_commerce_checkout_flow_multistep_default_alter(&$f
         '#type' => 'hidden',
         '#value' => (!empty($gls_point_destination[$field_name]) && $is_gls) ? gls_point_destination[$field_name] : '',
         '#attributes' => array(
-          'id' => $values['id'],
+          'id' => isset($values['id']) ? $values['id'] : '',
         ),
       );
     }
@@ -215,6 +216,11 @@ function _commerce_gls_hu_method_is_gls($form, \Drupal\Core\Form\FormStateInterf
   return $is_gls;
 }
 
+/**
+ * Helper function to get GLS shops fields.
+ *
+ * @return array
+ */
 function _commerce_gls_hu_get_gls_fields() {
   return [
     'shop_id' => [
