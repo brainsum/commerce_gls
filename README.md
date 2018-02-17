@@ -1,4 +1,6 @@
-Commerce GLS HU Shipping
+[![Build Status](https://travis-ci.org/brainsum/commerce_gls.svg?branch=master)](https://travis-ci.org/brainsum/commerce_gls)
+
+Commerce GLS HU Shipping for Commerce 2 (Drupal 8)
 
 
 CONTENTS OF THIS FILE
