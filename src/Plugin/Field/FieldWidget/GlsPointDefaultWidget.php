@@ -24,71 +24,71 @@ class GlsPointDefaultWidget extends WidgetBase {
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $values = $items[$delta]->getValue();
-    $element += array(
+    $element += [
       '#type' => 'fieldset',
-    );
+    ];
     $element['shop_id'] = [
-      '#title' => t('Shop id'),
+      '#title' => $this->t('Shop id'),
       '#type' => 'textfield',
       '#default_value' => isset($values['shop_id']) ? $values['shop_id'] : '',
       '#size' => 20,
     ];
     $element['store_gmap_address'] = [
-      '#title' => t('Gmap address'),
+      '#title' => $this->t('Gmap address'),
       '#type' => 'textfield',
       '#default_value' => isset($values['store_gmap_address']) ? $values['store_gmap_address'] : '',
       '#size' => 60,
     ];
     $element['pclshopid'] = [
-      '#title' => t('Pclshop id'),
+      '#title' => $this->t('Pclshop id'),
       '#type' => 'textfield',
       '#default_value' => isset($values['pclshopid']) ? $values['pclshopid'] : '',
       '#size' => 20,
     ];
     $element['name'] = [
-      '#title' => t('Name'),
+      '#title' => $this->t('Name'),
       '#type' => 'textfield',
       '#default_value' => isset($values['name']) ? $values['name'] : '',
       '#size' => 60,
     ];
     $element['ctrcode'] = [
-      '#title' => t('Ctrcode'),
+      '#title' => $this->t('Ctrcode'),
       '#type' => 'textfield',
       '#default_value' => isset($values['ctrcode']) ? $values['ctrcode'] : '',
       '#size' => 10,
     ];
     $element['zipcode'] = [
-      '#title' => t('Zipcode'),
+      '#title' => $this->t('Zipcode'),
       '#type' => 'textfield',
       '#default_value' => isset($values['zipcode']) ? $values['zipcode'] : '',
       '#size' => 10,
     ];
     $element['city'] = [
-      '#title' => t('City'),
+      '#title' => $this->t('City'),
       '#type' => 'textfield',
       '#default_value' => isset($values['city']) ? $values['city'] : '',
       '#size' => 20,
     ];
     $element['address'] = [
-      '#title' => t('Address'),
+      '#title' => $this->t('Address'),
       '#type' => 'textfield',
       '#default_value' => isset($values['address']) ? $values['address'] : '',
       '#size' => 60,
     ];
     $element['contact'] = [
-      '#title' => t('Contact'),
+      '#title' => $this->t('Contact'),
       '#type' => 'textfield',
       '#default_value' => isset($values['contact']) ? $values['contact'] : '',
       '#size' => 60,
     ];
     $element['phone'] = [
-      '#title' => t('Phone'),
+      '#title' => $this->t('Phone'),
       '#type' => 'textfield',
       '#default_value' => isset($values['phone']) ? $values['phone'] : '',
       '#size' => 20,
     ];
     $element['email'] = [
-      '#title' => t('Email'),
+      '#title' => $this->t('Email'),
       '#type' => 'textfield',
       '#default_value' => isset($values['email']) ? $values['email'] : '',
       '#size' => 20,
@@ -97,10 +97,10 @@ class GlsPointDefaultWidget extends WidgetBase {
     // If cardinality is 1, ensure a label is output for the field by wrapping
     // it in a details element.
     if ($this->fieldDefinition->getFieldStorageDefinition()->getCardinality() == 1) {
-      $element += array(
+      $element += [
         '#type' => 'fieldset',
-        '#attributes' => array('class' => array('container-inline')),
-      );
+        '#attributes' => ['class' => ['container-inline']],
+      ];
     }
 
     return $element;

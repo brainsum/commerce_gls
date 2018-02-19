@@ -29,7 +29,7 @@ class GlsPointDefaultFormatter extends FormatterBase {
       // Render each element as markup.
       foreach (_commerce_gls_hu_get_gls_fields() as $key => $value) {
         if ($value['visible'] === TRUE && !empty($item[$key])) {
-          $label = isset($value['label']) ? $value['label'] : t(ucfirst(str_replace('_', ' ', $key)));
+          $label = isset($value['label']) ? $value['label'] : $this->t(ucfirst(str_replace('_', ' ', $key)));
           $rows[] = [
             $label,
             $item[$key],
