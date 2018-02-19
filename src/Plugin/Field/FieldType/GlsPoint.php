@@ -2,13 +2,8 @@
 
 namespace Drupal\commerce_gls_hu\Plugin\Field\FieldType;
 
-use Drupal\Component\Utility\Random;
-use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Field\FieldItemBase;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\Core\TypedData\DataDefinition;
 
 /**
  * Plugin implementation of the 'gls_point' field type.
@@ -19,17 +14,6 @@ use Drupal\Core\TypedData\DataDefinition;
  *   description = @Translation("GLS Point") * )
  */
 class GlsPoint extends FieldItemBase {
-
-  // /**
-  //  * {@inheritdoc}
-  //  */
-  // public static function defaultStorageSettings() {
-  //   return [
-  //     'shop_id' => 255,
-  //     'store_gmap_address' => FALSE,
-  //     'case_sensitive' => FALSE,
-  //   ] + parent::defaultStorageSettings();
-  // }
 
   /**
    * {@inheritdoc}
@@ -129,58 +113,6 @@ class GlsPoint extends FieldItemBase {
     return $schema;
   }
 
-  // /**
-  //  * {@inheritdoc}
-  //  */
-  // public function getConstraints() {
-  //   $constraints = parent::getConstraints();
-
-  //   if ($max_length = $this->getSetting('max_length')) {
-  //     $constraint_manager = \Drupal::typedDataManager()->getValidationConstraintManager();
-  //     $constraints[] = $constraint_manager->create('ComplexData', [
-  //       'value' => [
-  //         'Length' => [
-  //           'max' => $max_length,
-  //           'maxMessage' => t('%name: may not be longer than @max characters.', [
-  //             '%name' => $this->getFieldDefinition()->getLabel(),
-  //             '@max' => $max_length
-  //           ]),
-  //         ],
-  //       ],
-  //     ]);
-  //   }
-
-  //   return $constraints;
-  // }
-
-  // /**
-  //  * {@inheritdoc}
-  //  */
-  // public static function generateSampleValue(FieldDefinitionInterface $field_definition) {
-  //   $random = new Random();
-  //   $values['value'] = $random->word(mt_rand(1, $field_definition->getSetting('max_length')));
-  //   return $values;
-  // }
-
-  // /**
-  //  * {@inheritdoc}
-  //  */
-  // public function storageSettingsForm(array &$form, FormStateInterface $form_state, $has_data) {
-  //   $elements = [];
-
-  //   $elements['max_length'] = [
-  //     '#type' => 'number',
-  //     '#title' => t('Maximum length'),
-  //     '#default_value' => $this->getSetting('max_length'),
-  //     '#required' => TRUE,
-  //     '#description' => t('The maximum length of the field in characters.'),
-  //     '#min' => 1,
-  //     '#disabled' => $has_data,
-  //   ];
-
-  //   return $elements;
-  // }
-
   /**
    * {@inheritdoc}
    */
@@ -197,8 +129,9 @@ class GlsPoint extends FieldItemBase {
     $value10 = $this->get('phone')->getValue();
     $value11 = $this->get('email')->getValue();
 
-    return empty($value1) && empty($value2) && empty($value3) && empty($value4) && empty($value5) && empty($value6)
-      && empty($value7) && empty($value8) && empty($value9)&& empty($value10) && empty($value11);
+    return empty($value1) && empty($value2) && empty($value3) &&
+      empty($value4) && empty($value5) && empty($value6) && empty($value7) &&
+      empty($value8) && empty($value9) && empty($value10) && empty($value11);
   }
 
 }

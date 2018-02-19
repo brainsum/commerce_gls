@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\commerce_gls_hu\Form\GlsHuAdminForm.
- */
-
 namespace Drupal\commerce_gls_hu\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
@@ -62,8 +57,8 @@ class GlsHuAdminForm extends ConfigFormBase {
     parent::submitForm($form, $form_state);
 
     $this->config('commerce_gls_hu.glshuadmin')
-        ->set('gls_map_api_key', $form_state->getValue('gls_map_api_key'))
-        ->save();
+      ->set('gls_map_api_key', $form_state->getValue('gls_map_api_key'))
+      ->save();
 
     drupal_flush_all_caches();
   }
